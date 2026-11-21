@@ -1,0 +1,71 @@
+{
+  "negocio": "BOT Y LLERIA Demo",
+  "slug": "demo",
+  "url": "https://nicoguzmanpardo1-art.github.io/catalogos-qr/demo/",
+  "whatsapp": "+56900000000",
+  "direccion": "Av. Ejemplo 123, Santiago",
+  "actualizado": "2026-11-21",
+  "colores": { "primario": "#7A1F2B", "secundario": "#F4EAD5" },
+  "categorias": [
+    {
+      "nombre": "Cervezas",
+      "icono": "cerveza",
+      "items": [
+        { "marca": "Cerro Alto", "nombre": "Cerveza Lager lata 470 cc", "precio": 1290, "descripcion": "Rubia, liviana y bien helada.", "stock": "disponible",
+          "promo": { "precio": 990, "desde": "2026-11-15", "hasta": "2026-11-30", "texto": "Precio fin de mes" } },
+        { "marca": "Cerro Alto", "nombre": "Pack 6 latas Lager 470 cc", "precio": 6990, "descripcion": "Para compartir.", "stock": "pocas" },
+        { "marca": "Lobo Austral", "nombre": "Cerveza Ámbar botella 330 cc", "precio": 1890, "descripcion": "Artesanal, notas a caramelo.", "stock": "disponible" },
+        { "marca": "Lobo Austral", "nombre": "Cerveza IPA botella 330 cc", "precio": 2190, "descripcion": "Lupulada y amarga.", "stock": "agotado" }
+      ]
+    },
+    {
+      "nombre": "Vinos",
+      "icono": "vino",
+      "items": [
+        { "marca": "Viña Los Quillayes", "nombre": "Cabernet Sauvignon Reserva 750 cc", "precio": 5990, "descripcion": "Valle del Maipo.", "stock": "disponible",
+          "promo": { "precio": 4490, "desde": "2026-11-01", "hasta": "2026-12-15", "texto": "Promo de temporada" } },
+        { "marca": "Viña Los Quillayes", "nombre": "Carmenere Reserva 750 cc", "precio": 5990, "descripcion": "Frutoso y suave.", "stock": "pocas" },
+        { "marca": "Santa Brisa", "nombre": "Sauvignon Blanc 750 cc", "precio": 4290, "descripcion": "Fresco, ideal con mariscos.", "stock": "disponible" },
+        { "marca": "Santa Brisa", "nombre": "Espumante Brut 750 cc", "precio": 6490, "descripcion": "Para celebrar.", "stock": "disponible",
+          "promo": { "precio": 4990, "desde": "2026-10-01", "hasta": "2026-11-10", "texto": "Promo vencida (no debe verse)" } }
+      ]
+    },
+    {
+      "nombre": "Piscos",
+      "icono": "pisco",
+      "items": [
+        { "marca": "Valle Elqui Sur", "nombre": "Pisco 35° 1 L", "precio": 7490, "descripcion": "El clásico para la piscola.", "stock": "disponible" },
+        { "marca": "Valle Elqui Sur", "nombre": "Pisco Reservado 40° 750 cc", "precio": 9990, "descripcion": "Guardado en roble.", "stock": "agotado" },
+        { "marca": "Monte Limarí", "nombre": "Pisco Sour preparado 700 cc", "precio": 4990, "descripcion": "Listo para servir.", "stock": "pocas" }
+      ]
+    },
+    {
+      "nombre": "Destilados",
+      "icono": "destilado",
+      "items": [
+        { "marca": "Glen Arauco", "nombre": "Whisky 8 años 750 cc", "precio": 15990, "descripcion": "Ahumado suave.", "stock": "disponible",
+          "promo": { "precio": 12990, "desde": "2026-11-20", "hasta": "2026-11-27", "texto": "Solo esta semana" } },
+        { "marca": "Botánica Andina", "nombre": "Gin London Dry 700 cc", "precio": 13490, "descripcion": "Con enebro y cítricos.", "stock": "pocas" },
+        { "marca": "Caribe Negro", "nombre": "Ron Añejo 750 cc", "precio": 8990, "descripcion": "Dulce y especiado.", "stock": "disponible" }
+      ]
+    },
+    {
+      "nombre": "Bebidas",
+      "icono": "bebida",
+      "items": [
+        { "marca": "Burbuja", "nombre": "Bebida cola 3 L", "precio": 2790, "descripcion": "Retornable no.", "stock": "disponible" },
+        { "marca": "Burbuja", "nombre": "Tónica 1,5 L", "precio": 1890, "descripcion": "Para el gin.", "stock": "disponible" },
+        { "marca": "Hielo Sur", "nombre": "Bolsa de hielo 2 kg", "precio": 1500, "descripcion": "En cubos.", "stock": "agotado" }
+      ]
+    },
+    {
+      "nombre": "Snacks",
+      "icono": "snack",
+      "items": [
+        { "marca": "Crujen", "nombre": "Papas fritas corte americano 250 g", "precio": 2490, "descripcion": "Con sal de mar.", "stock": "disponible" },
+        { "marca": "Crujen", "nombre": "Maní salado 200 g", "precio": 1590, "descripcion": "Tostado.", "stock": "pocas" },
+        { "marca": "Picoteo", "nombre": "Ramitas queso 150 g", "precio": 990, "descripcion": "El picoteo de siempre.", "stock": "disponible" }
+      ]
+    }
+  ]
+}

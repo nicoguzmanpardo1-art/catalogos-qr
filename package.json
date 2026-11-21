@@ -1,0 +1,14 @@
+{
+  "name": "catalogos-qr",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "qr": "node src/qr.mjs",
+    "preview": "npx --yes serve output"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "sharp": "^0.33.5"
+  }
+}

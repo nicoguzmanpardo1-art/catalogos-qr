@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{NEGOCIO}} · Catálogo</title>
+<meta name="description" content="Catálogo de {{NEGOCIO}}: precios, promociones y stock.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pri:{{PRIMARIO}};
+  --sec:{{SECUNDARIO}};
+  --tinta:#1E1714;
+  --tenue:#5C514B;
+  --papel:#FFFBF4;
+  --linea:#E6DACB;
+  --ok:#1D6B3A; --ok-bg:#E3F3E8;
+  --warn:#8A4B00; --warn-bg:#FFF0D6;
+  --off:#6B6360; --off-bg:#EEEAE7;
+  --oferta:#C2410C;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:128px}
+body{font:16px/1.45 "Work Sans",system-ui,sans-serif;color:var(--tinta);background:var(--papel);padding-bottom:96px}
+h1,h2,.precio{font-family:Fraunces,Georgia,serif}
+button{font:inherit;cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Cabecera */
+.top{background:var(--pri);color:var(--sec);padding:18px 16px 14px}
+.top h1{font-size:1.65rem;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+.top p{font-size:.95rem;opacity:.9;margin-top:4px}
+.upd{display:inline-block;margin-top:8px;font-size:.85rem;background:rgba(255,255,255,.14);padding:3px 10px;border-radius:99px}
+
+/* Barra fija: buscador + filtros + categorías */
+.bar{position:sticky;top:0;z-index:5;background:var(--papel);border-bottom:1px solid var(--linea);padding:10px 16px 0}
+.buscar{width:100%;font:inherit;font-size:16px;padding:11px 14px;border:2px solid var(--linea);border-radius:12px;background:#fff;color:var(--tinta)}
+.buscar:focus{outline:none;border-color:var(--pri)}
+.fil{display:flex;gap:8px;margin-top:8px}
+.chip{border:2px solid var(--pri);background:#fff;color:var(--pri);border-radius:99px;padding:6px 14px;font-weight:600;font-size:.95rem;white-space:nowrap}
+.chip[aria-pressed=true]{background:var(--pri);color:#fff}
+.cats{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:8px -16px 0;padding:0 16px}
+.cats::-webkit-scrollbar{display:none}
+.cats a{flex:none;color:var(--tenue);text-decoration:none;font-weight:600;padding:8px 10px 10px;border-bottom:3px solid transparent}
+.cats a:hover,.cats a.on{color:var(--pri);border-color:var(--pri)}
+
+/* Banner de promociones */
+.promos{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px;scrollbar-width:none}
+.promos::-webkit-scrollbar{display:none}
+.banner{flex:none;width:min(78vw,300px);aspect-ratio:1;scroll-snap-align:start;border-radius:18px;padding:18px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background:var(--pri)}
+.banner:nth-child(3n+2){background:#2F3E2E}
+.banner:nth-child(3n+3){background:#23324A}
+.banner::after{content:"";position:absolute;right:-40px;bottom:-40px;width:170px;height:170px;border-radius:50%;border:22px solid rgba(255,255,255,.1)}
+.banner .tag{align-self:flex-start;background:var(--sec);color:var(--tinta);font-weight:700;border-radius:8px;padding:2px 10px;font-size:.9rem}
+.banner h3{font-family:Fraunces,serif;font-size:1.35rem;line-height:1.15}
+.banner .marca{opacity:.8;font-size:.9rem}
+.banner .precio{font-size:2rem;font-weight:800}
+.banner s{opacity:.75;font-size:1rem;margin-left:6px}
+.banner small{opacity:.8;font-size:.85rem}
+
+/* Secciones y tarjetas */
+main{padding:0 16px}
+section{padding-top:20px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.sec-h h2{font-size:1.4rem;font-weight:800;color:var(--pri)}
+.sec-h span{color:var(--tenue);font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}main,.bar>*{max-width:1080px;margin-inline:auto}}
+.card{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.foto{aspect-ratio:1;display:grid;place-items:center;background:var(--sec);color:var(--pri)}
+.foto img{width:100%;height:100%;object-fit:cover}
+.foto svg{width:46%;height:46%}
+.dcto{position:absolute;top:8px;left:8px;background:var(--oferta);color:#fff;font-weight:700;font-size:.9rem;padding:2px 8px;border-radius:8px}
+.info{padding:10px;display:flex;flex-direction:column;gap:2px;flex:1}
+.info .marca{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--tenue);font-weight:600}
+.info h3{font-size:1rem;font-weight:500;line-height:1.3}
+.precios{margin-top:auto;padding-top:6px}
+.precio{font-size:1.3rem;font-weight:800}
+.card.oferta .precio{color:var(--oferta)}
+.antes{color:var(--tenue);font-size:.9rem}
+.stock{display:inline-flex;align-items:center;gap:5px;font-size:.85rem;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:6px;align-self:flex-start}
+.stock::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-disponible{color:var(--ok);background:var(--ok-bg)}
+.s-pocas{color:var(--warn);background:var(--warn-bg)}
+.s-agotado{color:var(--off);background:var(--off-bg)}
+.card.agotado .foto,.card.agotado .precio{opacity:.45}
+.vermas{display:block;width:100%;margin-top:10px;background:none;border:2px dashed var(--linea);border-radius:12px;padding:10px;color:var(--pri);font-weight:600}
+.oculto{display:none!important}
+.vacio{text-align:center;color:var(--tenue);padding:40px 0}
+footer{text-align:center;color:var(--tenue);font-size:.85rem;padding:28px 16px}
+
+/* WhatsApp */
+.wa{position:fixed;left:16px;right:16px;bottom:16px;z-index:6;display:flex;align-items:center;justify-content:center;gap:8px;background:#1C7C47;color:#fff;font-weight:600;text-decoration:none;padding:14px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:480px;margin:auto}
+.wa svg{width:22px;height:22px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cerveza" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M10 14h22v26a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z"/><path d="M32 20h4a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-4M10 14c0-5 4-8 8-6 2-3 8-3 10 0 4-1 6 2 4 6"/><path d="M17 22v14M25 22v14"/></symbol>
+  <symbol id="i-vino" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M14 4h20l-1 12a9 9 0 0 1-18 0z"/><path d="M24 25v15M16 44h16M15 14h18"/></symbol>
+  <symbol id="i-pisco" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M20 4h8v8l4 6v24a2 2 0 0 1-2 2H18a2 2 0 0 1-2-2V18l4-6z"/><path d="M16 26h16v10H16z"/></symbol>
+  <symbol id="i-destilado" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M8 14h32l-3 28H11z"/><path d="M10 26h28"/><rect x="16" y="29" width="8" height="8" rx="1"/><rect x="25" y="31" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-bebida" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M12 10h24l-3 34H15z"/><path d="M26 10l4-6h6M13 20h22"/></symbol>
+  <symbol id="i-snack" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M12 6h24l-2 6 2 6-2 6 2 6-2 6 2 6H12l2-6-2-6 2-6-2-6 2-6z"/><circle cx="24" cy="24" r="5"/></symbol>
+</svg>
+
+<header class="top">
+  <h1>{{NEGOCIO}}</h1>
+  <p>{{DIRECCION}}</p>
+  <span class="upd">Actualizado: {{ACTUALIZADO}}</span>
+</header>
+
+<div class="bar">
+  <label for="q" class="sr">Buscar producto</label>
+  <input id="q" class="buscar" type="search" placeholder="Buscar: pisco, cerveza, gin…" autocomplete="off">
+  <div class="fil">
+    <button class="chip" id="f-promo" aria-pressed="false">En promoción</button>
+    <button class="chip" id="f-stock" aria-pressed="false">Con stock</button>
+  </div>
+  <nav class="cats" aria-label="Categorías">{{NAV}}</nav>
+</div>
+
+{{PROMOS}}
+
+<main>
+{{SECCIONES}}
+<p class="vacio oculto" id="vacio">No encontramos productos con ese filtro.</p>
+</main>
+
+<footer>Precios en pesos chilenos, IVA incluido. Stock referencial: confírmalo en caja.<br>Actualizado: {{ACTUALIZADO}}</footer>
+
+<a class="wa" href="{{WA_URL}}" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+  Pedir por WhatsApp
+</a>
+
+<script>
+(function(){
+  var hoy=new Date().toISOString().slice(0,10);
+  // Respaldo: si la página no se regeneró, oculta promos que vencieron después del build.
+  document.querySelectorAll('[data-hasta]').forEach(function(el){
+    if(el.dataset.hasta<hoy){
+      if(el.classList.contains('banner')) el.remove();
+      else{el.classList.remove('oferta');el.dataset.promo='0';
+        var d=el.querySelector('.dcto');if(d)d.remove();
+        var a=el.querySelector('.antes');if(a)a.remove();
+        el.querySelector('.precio').textContent=el.dataset.normal;}
+    }
+  });
+  var promos=document.querySelector('.promos');if(promos&&!promos.children.length)promos.remove();
+
+  var q=document.getElementById('q'),fp=document.getElementById('f-promo'),fs=document.getElementById('f-stock');
+  var norm=function(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')};
+  function toggle(b){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');aplicar()}
+  fp.onclick=function(){toggle(fp)};fs.onclick=function(){toggle(fs)};
+  q.addEventListener('input',aplicar);
+
+  function aplicar(){
+    var t=norm(q.value.trim()),p=fp.getAttribute('aria-pressed')==='true',s=fs.getAttribute('aria-pressed')==='true';
+    var filtrando=t||p||s,total=0;
+    document.querySelectorAll('main section').forEach(function(sec){
+      var vis=0,cards=sec.querySelectorAll('.card');
+      cards.forEach(function(c,i){
+        var ok=(!t||c.dataset.txt.indexOf(t)>-1)&&(!p||c.dataset.promo==='1')&&(!s||c.dataset.stock!=='agotado');
+        var limite=!filtrando&&!sec.classList.contains('abierta')&&i>=+sec.dataset.limite;
+        c.classList.toggle('oculto',!ok||limite);
+        if(ok)vis++;
+      });
+      sec.classList.toggle('oculto',vis===0);
+      var vm=sec.querySelector('.vermas');
+      if(vm)vm.classList.toggle('oculto',filtrando||sec.classList.contains('abierta')||cards.length<=+sec.dataset.limite);
+      total+=vis;
+    });
+    document.getElementById('vacio').classList.toggle('oculto',total>0);
+  }
+  document.querySelectorAll('.vermas').forEach(function(b){
+    b.onclick=function(){b.closest('section').classList.add('abierta');aplicar()};
+  });
+  // Marca la categoría visible en el menú
+  var links=document.querySelectorAll('.cats a');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+      links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-140px 0px -60% 0px'});
+    document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+  }
+  aplicar();
+})();
+</script>
+</body>
+</html>
