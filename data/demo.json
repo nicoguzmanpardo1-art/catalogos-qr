@@ -4,67 +4,76 @@
   "url": "https://nicoguzmanpardo1-art.github.io/catalogos-qr/demo/",
   "whatsapp": "+56900000000",
   "direccion": "Av. Ejemplo 123, Santiago",
+  "horario": "Lun a Sáb 10:00–02:00 · Dom 12:00–00:00",
   "actualizado": "2026-11-21",
   "colores": { "primario": "#7A1F2B", "secundario": "#F4EAD5" },
   "categorias": [
     {
       "nombre": "Cervezas",
-      "icono": "cerveza",
       "items": [
-        { "marca": "Cerro Alto", "nombre": "Cerveza Lager lata 470 cc", "precio": 1290, "descripcion": "Rubia, liviana y bien helada.", "stock": "disponible",
+        { "marca": "Cerro Alto", "nombre": "Cerveza Lager lata 470 cc", "precio": 1290, "stock": "disponible", "tipo": "lata", "color": "#C8102E", "etiqueta": "LAGER",
           "promo": { "precio": 990, "desde": "2026-11-15", "hasta": "2026-11-30", "texto": "Precio fin de mes" } },
-        { "marca": "Cerro Alto", "nombre": "Pack 6 latas Lager 470 cc", "precio": 6990, "descripcion": "Para compartir.", "stock": "pocas" },
-        { "marca": "Lobo Austral", "nombre": "Cerveza Ámbar botella 330 cc", "precio": 1890, "descripcion": "Artesanal, notas a caramelo.", "stock": "disponible" },
-        { "marca": "Lobo Austral", "nombre": "Cerveza IPA botella 330 cc", "precio": 2190, "descripcion": "Lupulada y amarga.", "stock": "agotado" }
+        { "marca": "Cerro Alto", "nombre": "Pack 6 latas Lager 470 cc", "precio": 6990, "stock": "pocas", "tipo": "pack", "color": "#C8102E", "etiqueta": "LAGER",
+          "promo": { "precio": 5490, "desde": "2026-11-15", "hasta": "2026-11-30", "texto": "Pack fin de mes" } },
+        { "marca": "Lobo Austral", "nombre": "Cerveza Ámbar botella 330 cc", "precio": 1890, "stock": "disponible", "tipo": "cerveza", "color": "#8A4B12", "etiqueta": "ÁMBAR" },
+        { "marca": "Lobo Austral", "nombre": "Cerveza Stout botella 330 cc", "precio": 1990, "stock": "disponible", "tipo": "cerveza", "color": "#2B1B12", "etiqueta": "STOUT" },
+        { "marca": "Bahía Sur", "nombre": "Cerveza sin alcohol lata 350 cc", "precio": 1090, "stock": "disponible", "tipo": "lata", "color": "#1F6FB2", "etiqueta": "0,0°" },
+        { "marca": "Lobo Austral", "nombre": "Cerveza IPA botella 330 cc", "precio": 2190, "stock": "agotado", "tipo": "cerveza", "color": "#3E6B2A", "etiqueta": "IPA" }
       ]
     },
     {
       "nombre": "Vinos",
-      "icono": "vino",
       "items": [
-        { "marca": "Viña Los Quillayes", "nombre": "Cabernet Sauvignon Reserva 750 cc", "precio": 5990, "descripcion": "Valle del Maipo.", "stock": "disponible",
+        { "marca": "Viña Los Quillayes", "nombre": "Cabernet Sauvignon Reserva 750 cc", "precio": 5990, "stock": "disponible", "tipo": "vino", "color": "#3B0D16", "etiqueta": "CABERNET",
           "promo": { "precio": 4490, "desde": "2026-11-01", "hasta": "2026-12-15", "texto": "Promo de temporada" } },
-        { "marca": "Viña Los Quillayes", "nombre": "Carmenere Reserva 750 cc", "precio": 5990, "descripcion": "Frutoso y suave.", "stock": "pocas" },
-        { "marca": "Santa Brisa", "nombre": "Sauvignon Blanc 750 cc", "precio": 4290, "descripcion": "Fresco, ideal con mariscos.", "stock": "disponible" },
-        { "marca": "Santa Brisa", "nombre": "Espumante Brut 750 cc", "precio": 6490, "descripcion": "Para celebrar.", "stock": "disponible",
+        { "marca": "Viña Los Quillayes", "nombre": "Carmenere Reserva 750 cc", "precio": 5990, "stock": "pocas", "tipo": "vino", "color": "#2E0A12", "etiqueta": "CARMENERE" },
+        { "marca": "Santa Brisa", "nombre": "Sauvignon Blanc 750 cc", "precio": 4290, "stock": "disponible", "tipo": "vino", "color": "#9DB36A", "etiqueta": "S. BLANC" },
+        { "marca": "Santa Brisa", "nombre": "Rosé de uva País 750 cc", "precio": 3990, "stock": "disponible", "tipo": "vino", "color": "#E58A9A", "etiqueta": "ROSÉ" },
+        { "marca": "Campo Viejo Sur", "nombre": "Vino tinto caja 2 L", "precio": 4490, "stock": "disponible", "tipo": "vino", "color": "#5A1A24", "etiqueta": "TINTO" },
+        { "marca": "Santa Brisa", "nombre": "Espumante Brut 750 cc", "precio": 6490, "stock": "disponible", "tipo": "espumante", "color": "#1E3A2A", "etiqueta": "BRUT",
           "promo": { "precio": 4990, "desde": "2026-10-01", "hasta": "2026-11-10", "texto": "Promo vencida (no debe verse)" } }
       ]
     },
     {
       "nombre": "Piscos",
-      "icono": "pisco",
       "items": [
-        { "marca": "Valle Elqui Sur", "nombre": "Pisco 35° 1 L", "precio": 7490, "descripcion": "El clásico para la piscola.", "stock": "disponible" },
-        { "marca": "Valle Elqui Sur", "nombre": "Pisco Reservado 40° 750 cc", "precio": 9990, "descripcion": "Guardado en roble.", "stock": "agotado" },
-        { "marca": "Monte Limarí", "nombre": "Pisco Sour preparado 700 cc", "precio": 4990, "descripcion": "Listo para servir.", "stock": "pocas" }
+        { "marca": "Valle Elqui Sur", "nombre": "Pisco 35° 1 L", "precio": 7490, "stock": "disponible", "tipo": "pisco", "color": "#1F4E79", "etiqueta": "35°",
+          "promo": { "precio": 6290, "desde": "2026-11-18", "hasta": "2026-11-24", "texto": "Solo hasta el lunes" } },
+        { "marca": "Valle Elqui Sur", "nombre": "Pisco 40° 750 cc", "precio": 8990, "stock": "disponible", "tipo": "pisco", "color": "#0F2E4D", "etiqueta": "40°" },
+        { "marca": "Monte Limarí", "nombre": "Pisco Sour preparado 700 cc", "precio": 4990, "stock": "pocas", "tipo": "sour", "color": "#5C7A1E", "etiqueta": "SOUR" },
+        { "marca": "Valle Elqui Sur", "nombre": "Pisco Reservado 40° 750 cc", "precio": 9990, "stock": "agotado", "tipo": "pisco", "color": "#6B4A1E", "etiqueta": "RESERVA" }
       ]
     },
     {
-      "nombre": "Destilados",
-      "icono": "destilado",
+      "nombre": "Whisky y destilados",
       "items": [
-        { "marca": "Glen Arauco", "nombre": "Whisky 8 años 750 cc", "precio": 15990, "descripcion": "Ahumado suave.", "stock": "disponible",
+        { "marca": "Glen Arauco", "nombre": "Whisky 8 años 750 cc", "precio": 15990, "stock": "disponible", "tipo": "whisky", "color": "#A0561A", "etiqueta": "8 AÑOS",
           "promo": { "precio": 12990, "desde": "2026-11-20", "hasta": "2026-11-27", "texto": "Solo esta semana" } },
-        { "marca": "Botánica Andina", "nombre": "Gin London Dry 700 cc", "precio": 13490, "descripcion": "Con enebro y cítricos.", "stock": "pocas" },
-        { "marca": "Caribe Negro", "nombre": "Ron Añejo 750 cc", "precio": 8990, "descripcion": "Dulce y especiado.", "stock": "disponible" }
+        { "marca": "Glen Arauco", "nombre": "Whisky 12 años 750 cc", "precio": 24990, "stock": "pocas", "tipo": "whisky", "color": "#7A3A0E", "etiqueta": "12 AÑOS" },
+        { "marca": "Botánica Andina", "nombre": "Gin London Dry 700 cc", "precio": 13490, "stock": "disponible", "tipo": "gin", "color": "#1E6E6A", "etiqueta": "GIN" },
+        { "marca": "Caribe Negro", "nombre": "Ron Añejo 750 cc", "precio": 8990, "stock": "disponible", "tipo": "ron", "color": "#5A2A0A", "etiqueta": "AÑEJO" },
+        { "marca": "Estepa Blanca", "nombre": "Vodka 750 cc", "precio": 7990, "stock": "agotado", "tipo": "gin", "color": "#4A5A6A", "etiqueta": "VODKA" }
       ]
     },
     {
-      "nombre": "Bebidas",
-      "icono": "bebida",
+      "nombre": "Bebidas y hielo",
       "items": [
-        { "marca": "Burbuja", "nombre": "Bebida cola 3 L", "precio": 2790, "descripcion": "Retornable no.", "stock": "disponible" },
-        { "marca": "Burbuja", "nombre": "Tónica 1,5 L", "precio": 1890, "descripcion": "Para el gin.", "stock": "disponible" },
-        { "marca": "Hielo Sur", "nombre": "Bolsa de hielo 2 kg", "precio": 1500, "descripcion": "En cubos.", "stock": "agotado" }
+        { "marca": "Burbuja", "nombre": "Bebida cola 3 L", "precio": 2790, "stock": "disponible", "tipo": "cola", "color": "#C8102E", "etiqueta": "COLA",
+          "promo": { "precio": 2290, "desde": "2026-11-01", "hasta": "2026-11-30", "texto": "Para la piscola" } },
+        { "marca": "Burbuja", "nombre": "Bebida cola zero 3 L", "precio": 2790, "stock": "disponible", "tipo": "cola", "color": "#1A1A1A", "etiqueta": "ZERO" },
+        { "marca": "Burbuja", "nombre": "Ginger ale 1,5 L", "precio": 1790, "stock": "pocas", "tipo": "tonica", "color": "#2E7D32", "etiqueta": "GINGER" },
+        { "marca": "Burbuja", "nombre": "Tónica 1,5 L", "precio": 1890, "stock": "disponible", "tipo": "tonica", "color": "#C7A21A", "etiqueta": "TÓNICA" },
+        { "marca": "Hielo Sur", "nombre": "Bolsa de hielo 2 kg", "precio": 1500, "stock": "agotado", "tipo": "hielo", "color": "#1F6FB2", "etiqueta": "HIELO 2 KG" }
       ]
     },
     {
       "nombre": "Snacks",
-      "icono": "snack",
       "items": [
-        { "marca": "Crujen", "nombre": "Papas fritas corte americano 250 g", "precio": 2490, "descripcion": "Con sal de mar.", "stock": "disponible" },
-        { "marca": "Crujen", "nombre": "Maní salado 200 g", "precio": 1590, "descripcion": "Tostado.", "stock": "pocas" },
-        { "marca": "Picoteo", "nombre": "Ramitas queso 150 g", "precio": 990, "descripcion": "El picoteo de siempre.", "stock": "disponible" }
+        { "marca": "Crujen", "nombre": "Papas fritas corte americano 250 g", "precio": 2490, "stock": "disponible", "tipo": "papas", "color": "#D9480F", "etiqueta": "CRUJEN",
+          "promo": { "precio": 1990, "desde": "2026-11-15", "hasta": "2026-11-30", "texto": "2.º picoteo más barato" } },
+        { "marca": "Crujen", "nombre": "Maní salado 200 g", "precio": 1590, "stock": "pocas", "tipo": "mani", "color": "#B4441A", "etiqueta": "MANÍ" },
+        { "marca": "Picoteo", "nombre": "Ramitas queso 150 g", "precio": 990, "stock": "disponible", "tipo": "ramitas", "color": "#E0A800", "etiqueta": "RAMITAS" },
+        { "marca": "Crujen", "nombre": "Papas fritas merkén 180 g", "precio": 2290, "stock": "disponible", "tipo": "papas", "color": "#8E1B1B", "etiqueta": "MERKÉN" }
       ]
     }
   ]

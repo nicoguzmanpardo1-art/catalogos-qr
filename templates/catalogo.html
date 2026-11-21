@@ -4,189 +4,260 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{NEGOCIO}} · Catálogo</title>
-<meta name="description" content="Catálogo de {{NEGOCIO}}: precios, promociones y stock.">
+<meta name="description" content="Catálogo de {{NEGOCIO}}: precios, ofertas y stock al día.">
+<meta name="theme-color" content="{{PRIMARIO}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --pri:{{PRIMARIO}};
-  --sec:{{SECUNDARIO}};
-  --tinta:#1E1714;
-  --tenue:#5C514B;
-  --papel:#FFFBF4;
-  --linea:#E6DACB;
-  --ok:#1D6B3A; --ok-bg:#E3F3E8;
-  --warn:#8A4B00; --warn-bg:#FFF0D6;
-  --off:#6B6360; --off-bg:#EEEAE7;
-  --oferta:#C2410C;
+  --pri:{{PRIMARIO}};--sec:{{SECUNDARIO}};
+  --tinta:#1E1714;--tenue:#5C514B;--papel:#FFFBF4;--linea:#E6DACB;
+  --ok:#17663A;--ok-bg:#DFF3E6;--warn:#8A4B00;--warn-bg:#FFEBC7;--off:#5F5754;--off-bg:#ECE7E4;
+  --oferta:#D0390B;--oferta-bg:#FFE9DE;--wa:#1C7C47;
 }
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:128px}
-body{font:16px/1.45 "Work Sans",system-ui,sans-serif;color:var(--tinta);background:var(--papel);padding-bottom:96px}
-h1,h2,.precio{font-family:Fraunces,Georgia,serif}
-button{font:inherit;cursor:pointer}
+html{scroll-behavior:smooth;scroll-padding-top:150px}
+body{font:16px/1.45 "Work Sans",system-ui,sans-serif;color:var(--tinta);background:var(--papel);padding-bottom:100px}
+h1,h2,.precio,.ahorro-big{font-family:Fraunces,Georgia,serif}
+button{font:inherit;cursor:pointer;color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.oculto{display:none!important}
 
 /* Cabecera */
-.top{background:var(--pri);color:var(--sec);padding:18px 16px 14px}
-.top h1{font-size:1.65rem;font-weight:800;letter-spacing:-.01em;line-height:1.1}
-.top p{font-size:.95rem;opacity:.9;margin-top:4px}
-.upd{display:inline-block;margin-top:8px;font-size:.85rem;background:rgba(255,255,255,.14);padding:3px 10px;border-radius:99px}
+.top{background:var(--pri);color:var(--sec);padding:18px 16px 16px}
+.top h1{font-size:1.7rem;font-weight:800;line-height:1.1}
+.top .meta{font-size:.92rem;opacity:.92;margin-top:4px}
+.resumen{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.resumen div{background:rgba(255,255,255,.12);border-radius:12px;padding:8px 6px;text-align:center}
+.resumen b{display:block;font-family:Fraunces,serif;font-size:1.35rem;line-height:1.1;color:#fff}
+.resumen span{font-size:.78rem}
 
-/* Barra fija: buscador + filtros + categorías */
-.bar{position:sticky;top:0;z-index:5;background:var(--papel);border-bottom:1px solid var(--linea);padding:10px 16px 0}
+/* Barra fija */
+.bar{position:sticky;top:0;z-index:5;background:var(--papel);border-bottom:1px solid var(--linea);padding:10px 16px 0;box-shadow:0 4px 12px rgba(0,0,0,.04)}
 .buscar{width:100%;font:inherit;font-size:16px;padding:11px 14px;border:2px solid var(--linea);border-radius:12px;background:#fff;color:var(--tinta)}
 .buscar:focus{outline:none;border-color:var(--pri)}
 .fil{display:flex;gap:8px;margin-top:8px}
 .chip{border:2px solid var(--pri);background:#fff;color:var(--pri);border-radius:99px;padding:6px 14px;font-weight:600;font-size:.95rem;white-space:nowrap}
 .chip[aria-pressed=true]{background:var(--pri);color:#fff}
-.cats{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin:8px -16px 0;padding:0 16px}
+.chip.ofe{border-color:var(--oferta);color:var(--oferta)}
+.chip.ofe[aria-pressed=true]{background:var(--oferta);color:#fff}
+.cats{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin:6px -16px 0;padding:0 12px}
 .cats::-webkit-scrollbar{display:none}
-.cats a{flex:none;color:var(--tenue);text-decoration:none;font-weight:600;padding:8px 10px 10px;border-bottom:3px solid transparent}
-.cats a:hover,.cats a.on{color:var(--pri);border-color:var(--pri)}
+.cats a{flex:none;color:var(--tenue);text-decoration:none;font-weight:600;padding:8px 10px 10px;border-bottom:3px solid transparent;font-size:.95rem}
+.cats a.on,.cats a:hover{color:var(--pri);border-color:var(--pri)}
+.cats a.hot{color:var(--oferta)}
 
-/* Banner de promociones */
-.promos{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:16px;scrollbar-width:none}
-.promos::-webkit-scrollbar{display:none}
-.banner{flex:none;width:min(78vw,300px);aspect-ratio:1;scroll-snap-align:start;border-radius:18px;padding:18px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;background:var(--pri)}
-.banner:nth-child(3n+2){background:#2F3E2E}
-.banner:nth-child(3n+3){background:#23324A}
-.banner::after{content:"";position:absolute;right:-40px;bottom:-40px;width:170px;height:170px;border-radius:50%;border:22px solid rgba(255,255,255,.1)}
-.banner .tag{align-self:flex-start;background:var(--sec);color:var(--tinta);font-weight:700;border-radius:8px;padding:2px 10px;font-size:.9rem}
-.banner h3{font-family:Fraunces,serif;font-size:1.35rem;line-height:1.15}
-.banner .marca{opacity:.8;font-size:.9rem}
-.banner .precio{font-size:2rem;font-weight:800}
-.banner s{opacity:.75;font-size:1rem;margin-left:6px}
-.banner small{opacity:.8;font-size:.85rem}
-
-/* Secciones y tarjetas */
 main{padding:0 16px}
-section{padding-top:20px}
-.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
-.sec-h h2{font-size:1.4rem;font-weight:800;color:var(--pri)}
-.sec-h span{color:var(--tenue);font-size:.9rem}
+section{padding-top:22px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
+.sec-h h2{font-size:1.45rem;font-weight:800;color:var(--pri)}
+.sec-h span{color:var(--tenue);font-size:.88rem;white-space:nowrap}
+
+/* Ofertas destacadas */
+#ofertas{margin:0 -16px;padding:20px 16px 18px;background:var(--oferta-bg)}
+#ofertas .sec-h h2{color:var(--oferta)}
+#ofertas .sec-h span{color:#8C2A08}
+
+/* Tarjetas */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media(min-width:640px){.grid{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}main,.bar>*{max-width:1080px;margin-inline:auto}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(4,1fr)}main,.bar>*,.top>*{max-width:1080px;margin-inline:auto}}
 .card{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative}
-.foto{aspect-ratio:1;display:grid;place-items:center;background:var(--sec);color:var(--pri)}
-.foto img{width:100%;height:100%;object-fit:cover}
-.foto svg{width:46%;height:46%}
-.dcto{position:absolute;top:8px;left:8px;background:var(--oferta);color:#fff;font-weight:700;font-size:.9rem;padding:2px 8px;border-radius:8px}
-.info{padding:10px;display:flex;flex-direction:column;gap:2px;flex:1}
-.info .marca{font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--tenue);font-weight:600}
-.info h3{font-size:1rem;font-weight:500;line-height:1.3}
-.precios{margin-top:auto;padding-top:6px}
-.precio{font-size:1.3rem;font-weight:800}
-.card.oferta .precio{color:var(--oferta)}
-.antes{color:var(--tenue);font-size:.9rem}
-.stock{display:inline-flex;align-items:center;gap:5px;font-size:.85rem;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:6px;align-self:flex-start}
+.card.oferta{border:2px solid var(--oferta)}
+.foto{aspect-ratio:1;background:var(--sec);display:block}
+.foto svg,.foto img{width:100%;height:100%;display:block;object-fit:cover}
+.dcto{position:absolute;top:8px;left:8px;background:var(--oferta);color:#fff;font-weight:700;font-size:1rem;padding:3px 9px;border-radius:9px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.stock{align-self:flex-start;display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:700;padding:3px 9px;border-radius:99px;margin-bottom:4px}
 .stock::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
 .s-disponible{color:var(--ok);background:var(--ok-bg)}
 .s-pocas{color:var(--warn);background:var(--warn-bg)}
 .s-agotado{color:var(--off);background:var(--off-bg)}
-.card.agotado .foto,.card.agotado .precio{opacity:.45}
+.info{padding:10px;display:flex;flex-direction:column;gap:2px;flex:1}
+.info .marca{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--tenue);font-weight:700}
+.info h3{font-size:.98rem;font-weight:500;line-height:1.3}
+.precios{margin-top:auto;padding-top:8px}
+.precio{font-size:1.45rem;font-weight:800;line-height:1.1}
+.card.oferta .precio{color:var(--oferta)}
+.antes{color:var(--tenue);font-size:.85rem}
+.ahorro{display:inline-block;margin-top:3px;font-size:.8rem;font-weight:700;color:#8C2A08;background:var(--oferta-bg);padding:1px 7px;border-radius:6px}
+.vence{font-size:.78rem;color:var(--tenue);margin-top:2px}
+.card.agotado .foto{opacity:.4;filter:grayscale(1)}
+.card.agotado .precio{color:var(--tenue)}
+
+/* Cotizar */
+.cot{margin-top:10px;display:flex;align-items:center;gap:6px}
+.add{flex:1;border:2px solid var(--pri);background:#fff;color:var(--pri);font-weight:700;border-radius:10px;padding:8px 6px;font-size:.92rem}
+.add:active{transform:scale(.97)}
+.card.agotado .add{border-color:var(--linea);color:var(--tenue);background:var(--off-bg)}
+.qty{flex:1;display:flex;align-items:center;justify-content:space-between;background:var(--pri);color:#fff;border-radius:10px}
+.qty button{background:none;border:0;color:#fff;font-size:1.3rem;font-weight:700;width:40px;height:40px}
+.qty b{font-size:1.05rem}
+
 .vermas{display:block;width:100%;margin-top:10px;background:none;border:2px dashed var(--linea);border-radius:12px;padding:10px;color:var(--pri);font-weight:600}
-.oculto{display:none!important}
 .vacio{text-align:center;color:var(--tenue);padding:40px 0}
 footer{text-align:center;color:var(--tenue);font-size:.85rem;padding:28px 16px}
 
-/* WhatsApp */
-.wa{position:fixed;left:16px;right:16px;bottom:16px;z-index:6;display:flex;align-items:center;justify-content:center;gap:8px;background:#1C7C47;color:#fff;font-weight:600;text-decoration:none;padding:14px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);max-width:480px;margin:auto}
-.wa svg{width:22px;height:22px}
+/* Barra inferior */
+.pie{position:fixed;left:12px;right:12px;bottom:12px;z-index:6;max-width:520px;margin:auto}
+.wa{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--wa);color:#fff;font-weight:700;text-decoration:none;padding:14px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);border:0;width:100%}
+.wa svg{width:22px;height:22px;flex:none}
+.cotbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--tinta);color:#fff;border:0;width:100%;padding:12px 14px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.3);text-align:left}
+.cotbar small{display:block;opacity:.75;font-size:.8rem}
+.cotbar b{font-family:Fraunces,serif;font-size:1.25rem}
+.cotbar .ir{background:var(--wa);padding:8px 12px;border-radius:10px;font-weight:700;white-space:nowrap}
+
+/* Panel de cotización */
+.velo{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:7}
+.panel{position:fixed;left:0;right:0;bottom:0;z-index:8;background:var(--papel);border-radius:18px 18px 0 0;max-height:85vh;overflow:auto;padding:18px 16px 16px;max-width:560px;margin:auto}
+.panel h2{font-size:1.35rem;color:var(--pri)}
+.panel p.n{color:var(--tenue);font-size:.88rem;margin:4px 0 12px}
+.linea{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--linea)}
+.linea .t{flex:1;min-width:0}
+.linea .t div{font-size:.95rem;line-height:1.25}
+.linea .t small{color:var(--tenue)}
+.linea .qty{flex:none;width:118px}
+.linea .sub{font-weight:700;min-width:70px;text-align:right}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--tinta);padding:12px 0;font-weight:700}
+.total b{font-family:Fraunces,serif;font-size:1.6rem}
+.ahorro-tot{color:var(--oferta);font-weight:700;font-size:.92rem;margin-bottom:10px}
+.acciones{display:flex;gap:8px}
+.acciones .wa{flex:2}
+.vaciar{flex:1;background:#fff;border:2px solid var(--linea);border-radius:14px;font-weight:600}
+.cerrar{position:absolute;right:12px;top:12px;background:none;border:0;font-size:1.6rem;line-height:1;padding:6px}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-cerveza" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M10 14h22v26a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z"/><path d="M32 20h4a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-4M10 14c0-5 4-8 8-6 2-3 8-3 10 0 4-1 6 2 4 6"/><path d="M17 22v14M25 22v14"/></symbol>
-  <symbol id="i-vino" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M14 4h20l-1 12a9 9 0 0 1-18 0z"/><path d="M24 25v15M16 44h16M15 14h18"/></symbol>
-  <symbol id="i-pisco" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M20 4h8v8l4 6v24a2 2 0 0 1-2 2H18a2 2 0 0 1-2-2V18l4-6z"/><path d="M16 26h16v10H16z"/></symbol>
-  <symbol id="i-destilado" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M8 14h32l-3 28H11z"/><path d="M10 26h28"/><rect x="16" y="29" width="8" height="8" rx="1"/><rect x="25" y="31" width="7" height="7" rx="1"/></symbol>
-  <symbol id="i-bebida" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M12 10h24l-3 34H15z"/><path d="M26 10l4-6h6M13 20h22"/></symbol>
-  <symbol id="i-snack" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M12 6h24l-2 6 2 6-2 6 2 6-2 6 2 6H12l2-6-2-6 2-6-2-6 2-6z"/><circle cx="24" cy="24" r="5"/></symbol>
-</svg>
 
 <header class="top">
   <h1>{{NEGOCIO}}</h1>
-  <p>{{DIRECCION}}</p>
-  <span class="upd">Actualizado: {{ACTUALIZADO}}</span>
+  <p class="meta">{{DIRECCION}}</p>
+  <p class="meta">{{HORARIO}}</p>
+  <div class="resumen">
+    <div><b>{{N_OFERTAS}}</b><span>ofertas hoy</span></div>
+    <div><b>{{N_STOCK}}</b><span>con stock</span></div>
+    <div><b>{{ACT_CORTO}}</b><span>actualizado</span></div>
+  </div>
 </header>
 
 <div class="bar">
   <label for="q" class="sr">Buscar producto</label>
-  <input id="q" class="buscar" type="search" placeholder="Buscar: pisco, cerveza, gin…" autocomplete="off">
+  <input id="q" class="buscar" type="search" placeholder="Buscar: pisco, cola, whisky, uva…" autocomplete="off">
   <div class="fil">
-    <button class="chip" id="f-promo" aria-pressed="false">En promoción</button>
+    <button class="chip ofe" id="f-promo" aria-pressed="false">En oferta</button>
     <button class="chip" id="f-stock" aria-pressed="false">Con stock</button>
   </div>
   <nav class="cats" aria-label="Categorías">{{NAV}}</nav>
 </div>
 
-{{PROMOS}}
-
 <main>
+{{OFERTAS}}
 {{SECCIONES}}
 <p class="vacio oculto" id="vacio">No encontramos productos con ese filtro.</p>
 </main>
 
-<footer>Precios en pesos chilenos, IVA incluido. Stock referencial: confírmalo en caja.<br>Actualizado: {{ACTUALIZADO}}</footer>
+<footer>Precios en pesos chilenos, IVA incluido. Stock referencial: confírmalo en caja.<br>Actualizado: {{ACTUALIZADO}}<br>Imágenes ilustrativas.</footer>
 
-<a class="wa" href="{{WA_URL}}" target="_blank" rel="noopener">
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
-  Pedir por WhatsApp
-</a>
+<div class="pie">
+  <a class="wa" id="wa-simple" href="{{WA_URL}}" target="_blank" rel="noopener">{{WA_ICON}} Consultar por WhatsApp</a>
+  <button class="cotbar oculto" id="cotbar"><span><small id="cb-n"></small><b id="cb-t"></b></span><span class="ir">Ver cotización</span></button>
+</div>
+
+<div class="velo oculto" id="velo"></div>
+<div class="panel oculto" id="panel" role="dialog" aria-modal="true" aria-labelledby="p-h">
+  <button class="cerrar" id="cerrar" aria-label="Cerrar">×</button>
+  <h2 id="p-h">Tu cotización</h2>
+  <p class="n">Precios de hoy. Envíala por WhatsApp para confirmar stock o muéstrala en caja.</p>
+  <div id="lineas"></div>
+  <p class="ahorro-tot" id="p-ahorro"></p>
+  <div class="total"><span>Total estimado</span><b id="p-total"></b></div>
+  <div class="acciones">
+    <button class="vaciar" id="vaciar">Vaciar</button>
+    <a class="wa" id="wa-cot" href="#" target="_blank" rel="noopener">{{WA_ICON}} Enviar por WhatsApp</a>
+  </div>
+</div>
 
 <script>
 (function(){
+  var NEG={{NEGOCIO_JSON}},WA="{{WA_NUM}}",KEY="cot-{{SLUG}}";
   var hoy=new Date().toISOString().slice(0,10);
-  // Respaldo: si la página no se regeneró, oculta promos que vencieron después del build.
-  document.querySelectorAll('[data-hasta]').forEach(function(el){
-    if(el.dataset.hasta<hoy){
-      if(el.classList.contains('banner')) el.remove();
-      else{el.classList.remove('oferta');el.dataset.promo='0';
-        var d=el.querySelector('.dcto');if(d)d.remove();
-        var a=el.querySelector('.antes');if(a)a.remove();
-        el.querySelector('.precio').textContent=el.dataset.normal;}
+  var clp=function(n){return '$'+Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,'.')};
+  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+
+  // Respaldo: oculta ofertas que vencieron después de generar la página
+  $$('.card[data-hasta]').forEach(function(c){
+    if(c.dataset.hasta<hoy){
+      if(c.closest('#ofertas')){c.remove();return}
+      c.classList.remove('oferta');c.dataset.promo='0';c.dataset.precio=c.dataset.normal;
+      ['.dcto','.antes','.ahorro','.vence'].forEach(function(s){var e=$(s,c);if(e)e.remove()});
+      $('.precio',c).textContent=clp(c.dataset.normal);
     }
   });
-  var promos=document.querySelector('.promos');if(promos&&!promos.children.length)promos.remove();
+  var of=$('#ofertas');if(of&&!$('.card',of))of.remove();
 
-  var q=document.getElementById('q'),fp=document.getElementById('f-promo'),fs=document.getElementById('f-stock');
+  // Cotización
+  var cot={};try{cot=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+  function guardar(){try{localStorage.setItem(KEY,JSON.stringify(cot))}catch(e){}}
+  function info(id){var c=$('.card[data-id="'+id+'"]');return c&&{nombre:c.dataset.nombre,precio:+c.dataset.precio,normal:+c.dataset.normal,agotado:c.dataset.stock==='agotado'}}
+  Object.keys(cot).forEach(function(id){var i=info(id);if(!i||i.agotado)delete cot[id]});
+  function cambiar(id,d){cot[id]=(cot[id]||0)+d;if(cot[id]<=0)delete cot[id];if(cot[id]>99)cot[id]=99;guardar();pintar()}
+  function botones(c){
+    var id=c.dataset.id,n=cot[id]||0,box=$('.cot',c);
+    if(c.dataset.stock==='agotado'){box.innerHTML='<button class="add" disabled>Sin stock</button>';return}
+    box.innerHTML=n?'<div class="qty"><button data-d="-1" aria-label="Quitar uno">−</button><b>'+n+'</b><button data-d="1" aria-label="Agregar uno">+</button></div>'
+                   :'<button class="add" data-d="1">+ Cotizar</button>';
+  }
+  function pintar(){
+    $$('.card').forEach(botones);
+    var ids=Object.keys(cot),n=0,t=0,ah=0,lines=[];
+    ids.forEach(function(id){var i=info(id),q=cot[id];n+=q;t+=q*i.precio;ah+=q*(i.normal-i.precio);
+      lines.push('<div class="linea" data-id="'+id+'"><div class="t"><div>'+i.nombre+'</div><small>'+clp(i.precio)+' c/u</small></div><div class="qty"><button data-d="-1" aria-label="Quitar uno">−</button><b>'+q+'</b><button data-d="1" aria-label="Agregar uno">+</button></div><div class="sub">'+clp(q*i.precio)+'</div></div>')});
+    $('#lineas').innerHTML=lines.join('');
+    $('#p-total').textContent=clp(t);
+    $('#p-ahorro').textContent=ah>0?'Ahorras '+clp(ah)+' con las ofertas de hoy':'';
+    $('#cotbar').classList.toggle('oculto',!n);$('#wa-simple').classList.toggle('oculto',!!n);
+    $('#cb-n').textContent=n+(n===1?' producto':' productos')+' en tu cotización';$('#cb-t').textContent=clp(t);
+    var msg='Hola '+NEG+', quiero cotizar:\n'+ids.map(function(id){var i=info(id);return '• '+cot[id]+' × '+i.nombre+' ('+clp(i.precio)+') = '+clp(cot[id]*i.precio)}).join('\n')+'\nTotal estimado: '+clp(t)+'\n¿Hay stock?';
+    $('#wa-cot').href='https://wa.me/'+WA+'?text='+encodeURIComponent(msg);
+    if(!n)abrir(false);
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-d]');if(!b)return;
+    var h=b.closest('[data-id]');if(h)cambiar(h.dataset.id,+b.dataset.d);
+  });
+  function abrir(s){$('#panel').classList.toggle('oculto',!s);$('#velo').classList.toggle('oculto',!s);document.body.style.overflow=s?'hidden':''}
+  $('#cotbar').onclick=function(){abrir(true)};$('#cerrar').onclick=$('#velo').onclick=function(){abrir(false)};
+  $('#vaciar').onclick=function(){cot={};guardar();pintar()};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')abrir(false)});
+
+  // Filtros y buscador
+  var q=$('#q'),fp=$('#f-promo'),fs=$('#f-stock');
   var norm=function(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')};
   function toggle(b){b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');aplicar()}
-  fp.onclick=function(){toggle(fp)};fs.onclick=function(){toggle(fs)};
-  q.addEventListener('input',aplicar);
-
+  fp.onclick=function(){toggle(fp)};fs.onclick=function(){toggle(fs)};q.addEventListener('input',aplicar);
   function aplicar(){
     var t=norm(q.value.trim()),p=fp.getAttribute('aria-pressed')==='true',s=fs.getAttribute('aria-pressed')==='true';
-    var filtrando=t||p||s,total=0;
-    document.querySelectorAll('main section').forEach(function(sec){
-      var vis=0,cards=sec.querySelectorAll('.card');
+    var filtrando=!!(t||p||s),total=0;
+    var ofe=$('#ofertas');if(ofe)ofe.classList.toggle('oculto',filtrando);
+    $$('main section:not(#ofertas)').forEach(function(sec){
+      var vis=0,cards=$$('.card',sec),lim=+sec.dataset.limite,abierta=sec.classList.contains('abierta');
       cards.forEach(function(c,i){
         var ok=(!t||c.dataset.txt.indexOf(t)>-1)&&(!p||c.dataset.promo==='1')&&(!s||c.dataset.stock!=='agotado');
-        var limite=!filtrando&&!sec.classList.contains('abierta')&&i>=+sec.dataset.limite;
-        c.classList.toggle('oculto',!ok||limite);
-        if(ok)vis++;
+        c.classList.toggle('oculto',!ok||(!filtrando&&!abierta&&i>=lim));if(ok)vis++;
       });
       sec.classList.toggle('oculto',vis===0);
-      var vm=sec.querySelector('.vermas');
-      if(vm)vm.classList.toggle('oculto',filtrando||sec.classList.contains('abierta')||cards.length<=+sec.dataset.limite);
+      var vm=$('.vermas',sec);if(vm)vm.classList.toggle('oculto',filtrando||abierta||cards.length<=lim);
       total+=vis;
     });
-    document.getElementById('vacio').classList.toggle('oculto',total>0);
+    $('#vacio').classList.toggle('oculto',total>0);
   }
-  document.querySelectorAll('.vermas').forEach(function(b){
-    b.onclick=function(){b.closest('section').classList.add('abierta');aplicar()};
-  });
-  // Marca la categoría visible en el menú
-  var links=document.querySelectorAll('.cats a');
+  $$('.vermas').forEach(function(b){b.onclick=function(){b.closest('section').classList.add('abierta');aplicar()}});
+  var links=$$('.cats a');
   if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
-      links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-140px 0px -60% 0px'});
-    document.querySelectorAll('main section').forEach(function(s){io.observe(s)});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-160px 0px -60% 0px'});
+    $$('main section').forEach(function(s){io.observe(s)});
   }
-  aplicar();
+  aplicar();pintar();
 })();
 </script>
 </body>
