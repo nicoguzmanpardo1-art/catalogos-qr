@@ -74,5 +74,6 @@ Campos extra usados por el build: `url` (URL estable del QR), `direccion`, `actu
 - [x] Definir el stack: HTML + CSS + JS vanilla, generado con Node (`src/build.mjs`, `src/qr.mjs`)
 - [x] Crear la plantilla base en `templates/catalogo.html`
 - [x] Primer negocio de prueba en `data/demo.json` (falta un piloto real)
-- [ ] Elegir el hosting y el dominio
+- [x] Hosting: GitHub Pages (repo público `nicoguzmanpardo1-art/catalogos-qr`). Cada push a `main` regenera todos los catálogos y QR (`.github/workflows/pages.yml`). URL: `https://nicoguzmanpardo1-art.github.io/catalogos-qr/<negocio>/`
+- [ ] Dominio propio (opcional, tiene costo)
 
