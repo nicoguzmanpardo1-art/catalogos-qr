@@ -31,7 +31,9 @@ async function foto(item) {
   const src = path.join(raiz, 'assets', slug, item.foto);
   if (!fs.existsSync(src)) { console.warn(`  ! Falta la foto ${item.foto}; uso ilustración`); return null; }
   const nombre = path.parse(item.foto).name + '.webp';
-  await sharp(src).resize(480, 480, { fit: 'cover' }).webp({ quality: 72 }).toFile(path.join(salida, 'img', nombre));
+  await sharp(src).trim({ threshold: 12 }).resize(400, 400, { fit: 'contain', background: '#ffffff' })
+    .extend({ top: 20, bottom: 20, left: 20, right: 20, background: '#ffffff' })
+    .webp({ quality: 70 }).toFile(path.join(salida, 'img', nombre));
   return 'img/' + nombre;
 }
 
@@ -43,7 +45,7 @@ function tarjeta(it, cat, img) {
   const visual = img
     ? `<img src="${img}" alt="${esc(it.nombre)}" loading="lazy" width="480" height="480">`
     : ilustracion({ tipo: it.tipo, color: it.color, etiqueta: it.etiqueta || it.marca, fondo: '#F7F0E3' });
-  return `<article class="card${promo ? ' oferta' : ''}${agotado ? ' agotado' : ''}" data-id="${it.id}" data-nombre="${esc(it.nombre)}" data-precio="${precio}" data-normal="${it.precio}" data-stock="${it.stock}" data-promo="${promo ? 1 : 0}" data-txt="${esc(norm(`${it.marca} ${it.nombre} ${cat} ${it.etiqueta || ''} ${it.descripcion || ''} ${it.tipo || ''}`))}"${promo ? ` data-hasta="${promo.hasta}"` : ''}>
+  return `<article class="card${promo ? ' oferta' : ''}${agotado ? ' agotado' : ''}" data-id="${it.id}" data-nombre="${esc(it.marca + ' ' + it.nombre)}" data-precio="${precio}" data-normal="${it.precio}" data-stock="${it.stock}" data-promo="${promo ? 1 : 0}" data-txt="${esc(norm(`${it.marca} ${it.nombre} ${cat} ${it.etiqueta || ''} ${it.descripcion || ''} ${it.tipo || ''}`))}"${promo ? ` data-hasta="${promo.hasta}"` : ''}>
   <div class="foto">${visual}</div>
   ${promo ? `<span class="dcto">-${pct}%</span>` : ''}
   <div class="info">
@@ -90,6 +92,10 @@ const waNum = datos.whatsapp.replace(/\D/g, '');
 const nav = (ofertas.length ? `<a href="#ofertas" class="hot">Ofertas</a>` : '') +
   datos.categorias.map(c => `<a href="#${idDe(c.nombre)}">${esc(c.nombre)}</a>`).join('');
 const act = datos.actualizado || hoy;
+// Créditos de fotos con licencia (p. ej. Open Food Facts, CC BY-SA)
+const conCredito = datos.categorias.flatMap(c => c.items).filter(i => i.credito && fs.existsSync(path.join(salida, 'img', path.parse(i.foto || '').name + '.webp')));
+const creditos = conCredito.length ? `<details class="creditos"><summary>Créditos de las fotos (${conCredito.length})</summary><ul>${conCredito.map(i =>
+  `<li>${esc(i.nombre)}: <a href="${esc(i.credito.url)}" target="_blank" rel="noopener">${esc(i.credito.fuente)}</a>, ${esc(i.credito.licencia)}${i.credito.cambios ? ' · ' + esc(i.credito.cambios) : ''}</li>`).join('')}</ul></details>` : '';
 
 const html = fs.readFileSync(path.join(raiz, 'templates', 'catalogo.html'), 'utf8')
   .replaceAll('{{NEGOCIO}}', esc(datos.negocio))
@@ -111,6 +117,7 @@ ${ofertas.map(o => o.html).join('\n')}
   </div>
 </section>` : '')
   .replace('{{SECCIONES}}', secciones.join('\n'))
+  .replace('{{CREDITOS}}', creditos)
   .replaceAll('{{WA_ICON}}', WA_ICON)
   .replace('{{WA_NUM}}', waNum)
   .replace('{{WA_URL}}', `https://wa.me/${waNum}?text=${encodeURIComponent(`Hola ${datos.negocio}, vi el catálogo y quiero consultar por: `)}`);

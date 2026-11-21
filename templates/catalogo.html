@@ -66,7 +66,12 @@ section{padding-top:22px}
 .card{background:#fff;border:1px solid var(--linea);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;position:relative}
 .card.oferta{border:2px solid var(--oferta)}
 .foto{aspect-ratio:1;background:var(--sec);display:block}
-.foto svg,.foto img{width:100%;height:100%;display:block;object-fit:cover}
+.foto svg,.foto img{width:100%;height:100%;display:block;object-fit:contain}
+.foto:has(img){background:#fff;border-bottom:1px solid var(--linea)}
+.creditos{max-width:720px;margin:14px auto 0;font-size:.75rem;text-align:left}
+.creditos summary{cursor:pointer;text-align:center}
+.creditos ul{padding-left:18px;margin-top:6px}
+.creditos a{color:inherit}
 .dcto{position:absolute;top:8px;left:8px;background:var(--oferta);color:#fff;font-weight:700;font-size:1rem;padding:3px 9px;border-radius:9px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
 .stock{align-self:flex-start;display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:700;padding:3px 9px;border-radius:99px;margin-bottom:4px}
 .stock::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
@@ -156,7 +161,8 @@ footer{text-align:center;color:var(--tenue);font-size:.85rem;padding:28px 16px}
 <p class="vacio oculto" id="vacio">No encontramos productos con ese filtro.</p>
 </main>
 
-<footer>Precios en pesos chilenos, IVA incluido. Stock referencial: confírmalo en caja.<br>Actualizado: {{ACTUALIZADO}}<br>Imágenes ilustrativas.</footer>
+<footer>Precios en pesos chilenos, IVA incluido. Stock referencial: confírmalo en caja.<br>Actualizado: {{ACTUALIZADO}}<br>Imágenes referenciales. Las marcas pertenecen a sus respectivos dueños.
+{{CREDITOS}}</footer>
 
 <div class="pie">
   <a class="wa" id="wa-simple" href="{{WA_URL}}" target="_blank" rel="noopener">{{WA_ICON}} Consultar por WhatsApp</a>

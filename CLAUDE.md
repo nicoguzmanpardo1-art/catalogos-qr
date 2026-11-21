@@ -46,7 +46,8 @@
   ]
 }
 ```
-Sin foto, cada producto usa una ilustración propia (`src/ilustraciones.mjs`) según `tipo` (lata, pack, cerveza, vino, espumante, pisco, sour, whisky, gin, ron, cola, tonica, hielo, papas, mani, ramitas), con `color` y `etiqueta` (texto corto). No usar logos ni fotos de marcas reales.
+Sin foto, cada producto usa una ilustración propia (`src/ilustraciones.mjs`) según `tipo` (lata, pack, cerveza, vino, espumante, pisco, sour, whisky, gin, ron, cola, tonica, hielo, papas, mani, ramitas), con `color` y `etiqueta` (texto corto). En las ilustraciones no dibujar logos de marcas reales (usar textos genéricos: COLA, WHISKY…).
+Fotos de productos reales: del cliente, o de Open Food Facts (CC BY-SA 3.0) con el campo `credito` en el JSON; el pie de página lista los créditos automáticamente. Revisar la calidad antes de usarlas (muchas son fotos caseras).
 La página incluye una sección "Ofertas de hoy" y una cotización (lista con cantidades y total) que se envía por WhatsApp; no hay pagos ni login.
 Campos extra usados por el build: `url` (URL estable del QR), `direccion`, `actualizado` (AAAA-MM-DD), `icono` por categoría (cerveza, vino, pisco, destilado, bebida, snack; se usa si no hay foto). Ejemplo completo: `data/demo.json`.
 - Promos fuera de `desde`–`hasta` no se muestran (se revisa al generar y también en el navegador).
