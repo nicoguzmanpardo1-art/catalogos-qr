@@ -101,6 +101,7 @@ const html = fs.readFileSync(path.join(raiz, 'templates', 'catalogo.html'), 'utf
   .replaceAll('{{NEGOCIO}}', esc(datos.negocio))
   .replace('{{NEGOCIO_JSON}}', JSON.stringify(datos.negocio).replace(/</g, '\\u003c'))
   .replaceAll('{{SLUG}}', slug)
+  .replace('{{LEMA}}', esc(datos.lema || datos.negocio))
   .replace('{{DIRECCION}}', esc(datos.direccion || ''))
   .replace('{{HORARIO}}', esc(datos.horario || ''))
   .replaceAll('{{ACTUALIZADO}}', fecha(act))

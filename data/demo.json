@@ -1,5 +1,5 @@
 {
-  "negocio": "BOT Y LLERIA Demo",
+  "negocio": "Botillería TIN-TAN",
   "slug": "demo",
   "url": "https://nicoguzmanpardo1-art.github.io/catalogos-qr/demo/",
   "whatsapp": "+56900000000",
@@ -671,5 +671,6 @@
       ]
     }
   ],
-  "nota": "Datos de demostración: precios referenciales, no son precios reales de ningún local."
+  "nota": "Datos de demostración: precios referenciales, no son precios reales de ningún local.",
+  "lema": "Tu botillería, a un escaneo de distancia"
 }
